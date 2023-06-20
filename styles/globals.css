@@ -1,38 +1,392 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import 'tailwindcss/tailwind.css';
+
+.lineup-position {
+  position: absolute;
+  width: 10%
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.lineup-circle {
+  --tw-border-opacity: 1;
+  --tw-bg-opacity: 1;
+  align-items: center;
+  background-color: rgba(255,255,255,var(--tw-bg-opacity));
+  border-color: rgba(24,147,193,var(--tw-border-opacity));
+  border-radius: 9999px;
+  border-style: solid;
+  border-width: 2px;
+  display: flex;
+  height: 28px;
+  justify-content: center;
+  margin: auto;
+  width: 28px
 }
 
-* {
-  box-sizing: border-box;
+.dark .lineup-circle {
+  --tw-bg-opacity: 1;
+  background-color: rgba(18,18,18,var(--tw-bg-opacity))
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+.lineup-circle {
+  font-size: 14px;
+  text-align: center
 }
 
-h1,
-h2,
-p,
-ul {
-  margin: 0;
+.dark .lineup-circle {
+  --tw-text-opacity: 1;
+  color: rgba(255,255,255,var(--tw-text-opacity))
 }
 
-ul {
-  padding: 0;
-  list-style: none;
+.lineup-circle-player {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center
 }
 
-button {
-  padding: 0.5rem 1rem;
-  font-weight: bold;
+.dark .lineup-circle-player {
+  --tw-text-opacity: 1;
+  color: rgba(255,255,255,var(--tw-text-opacity));
+  opacity: .8
+}
+
+.gk-a {
+  right: 0
+}
+
+.gk-a,.gk-h {
+  bottom: 50%;
+  top: 50%
+}
+
+.gk-h {
+  left: 0
+}
+
+.rb-a {
+  right: 10%;
+  top: 20%
+}
+
+.rb-h {
+  left: 10%;
+  top: 80%
+}
+
+.rcd-a {
+  right: 10%;
+  top: 40%
+}
+
+.rcd-h {
+  left: 10%;
+  top: 60%
+}
+
+.cd-a {
+  right: 10%;
+  top: 50%
+}
+
+.cd-h {
+  left: 10%;
+  top: 50%
+}
+
+.lcd-a {
+  right: 10%;
+  top: 60%
+}
+
+.lcd-h {
+  left: 10%;
+  top: 40%
+}
+
+.lb-a {
+  right: 10%;
+  top: 80%
+}
+
+.lb-h {
+  left: 10%;
+  top: 20%
+}
+
+.rwb-a {
+  right: 20%;
+  top: 16.666667%
+}
+
+.rwb-h {
+  left: 20%;
+  top: 83.333333%
+}
+
+.rcdm-h {
+  left: 20%;
+  top: 60%
+}
+
+.rcdm-a {
+  right: 20%;
+  top: 40%
+}
+
+.cdm-h {
+  left: 20%;
+  top: 50%
+}
+
+.cdm-a {
+  right: 20%;
+  top: 50%
+}
+
+.lcdm-h {
+  left: 20%;
+  top: 40%
+}
+
+.lcdm-a {
+  right: 20%;
+  top: 60%
+}
+
+.lwb-a {
+  right: 20%;
+  top: 83.333333%
+}
+
+.lwb-h {
+  left: 20%;
+  top: 16.666667%
+}
+
+.rw-h {
+  left: 30%;
+  top: 80%
+}
+
+.rw-a {
+  right: 30%;
+  top: 20%
+}
+
+.rm-a {
+  right: 25%;
+  top: 30%
+}
+
+.rm-h {
+  left: 25%;
+  top: 70%
+}
+
+.rcm-a {
+  right: 25%;
+  top: 40%
+}
+
+.rcm-h {
+  left: 25%;
+  top: 60%
+}
+
+.cm-a {
+  right: 25%;
+  top: 50%
+}
+
+.cm-h {
+  left: 25%;
+  top: 50%
+}
+
+.lcm-a {
+  right: 25%;
+  top: 60%
+}
+
+.lcm-h {
+  left: 25%;
+  top: 40%
+}
+
+.lm-a {
+  right: 25%;
+  top: 70%
+}
+
+.lm-h {
+  left: 25%;
+  top: 30%
+}
+
+.lw-h {
+  left: 30%;
+  top: 20%
+}
+
+.lw-a {
+  right: 30%;
+  top: 80%
+}
+
+.rcam-a {
+  right: 30%;
+  top: 33.333333%
+}
+
+.rcam-h {
+  left: 30%;
+  top: 66.666667%
+}
+
+.cam-a {
+  right: 30%;
+  top: 50%
+}
+
+.cam-h {
+  left: 30%;
+  top: 50%
+}
+
+.lcam-a {
+  right: 30%;
+  top: 66.666667%
+}
+
+.lcam-h {
+  left: 30%;
+  top: 33.333333%
+}
+
+.rf-a {
+  right: 40%;
+  top: 20%
+}
+
+.rf-h {
+  left: 40%;
+  top: 80%
+}
+
+.lf-a {
+  right: 40%;
+  top: 80%
+}
+
+.lf-h {
+  left: 40%;
+  top: 20%
+}
+
+.rst-a {
+  right: 40%;
+  top: 40%
+}
+
+.rst-h {
+  left: 40%;
+  top: 60%
+}
+
+.st-a {
+  right: 40%;
+  top: 50%
+}
+
+.st-h {
+  left: 40%;
+  top: 50%
+}
+
+.lst-a {
+  right: 40%;
+  top: 60%
+}
+
+.lst-h {
+  left: 40%;
+  top: 40%
+}
+
+.rb-5-a {
+  right: 10%;
+  top: 16.666667%
+}
+
+.rb-5-h {
+  left: 10%;
+  top: 83.333333%
+}
+
+.rcd-5-a {
+  right: 10%;
+  top: 33.333333%
+}
+
+.rcd-5-h {
+  left: 10%;
+  top: 66.666667%
+}
+
+.lcd-5-a {
+  right: 10%;
+  top: 66.666667%
+}
+
+.lcd-5-h {
+  left: 10%;
+  top: 33.333333%
+}
+
+.lb-5-a {
+  right: 10%;
+  top: 83.333333%
+}
+
+.lb-5-h {
+  left: 10%;
+  top: 16.666667%
+}
+
+.rm-5-a {
+  right: 25%;
+  top: 16.666667%
+}
+
+.rm-5-h {
+  left: 25%;
+  top: 83.333333%
+}
+
+.rcm-5-a {
+  right: 25%;
+  top: 33.333333%
+}
+
+.rcm-5-h {
+  left: 25%;
+  top: 66.666667%
+}
+
+.lcm-5-a {
+  right: 25%;
+  top: 66.666667%
+}
+
+.lcm-5-h {
+  left: 25%;
+  top: 33.333333%
+}
+
+.lm-5-a {
+  right: 25%;
+  top: 83.333333%
+}
+
+.lm-5-h {
+  left: 25%;
+  top: 16.666667%
 }
