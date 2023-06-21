@@ -1,30 +1,34 @@
 import React, { useState, useEffect, forwardRef  } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
-import calendarSVG from '../public/calendar.svg?url'
+import CalendarSVG from '../public/calendar.svg'
 import MoonSVG from '../public/moon.svg'
 import SunSVG from '../public/sun.svg'
 import BallSVG from '../public/ball.svg'
 import SubstituteSVG from '../public/substitute.svg'
-import substituteSVG from '../public/substitute.svg?url'
-import Select from 'react-select';
+import Select from 'react-select'
+
 import { format, formatDistance, formatRelative, subDays ,addDays } from 'date-fns'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Match from '../components/match';
 import axios from 'axios';
 import LoadingSpinner from '../utils/LoadingSpinner';
+import { LeagueModelSelect } from '../models/LeagueModel';
 
 const Home = ({ liveScoreMatches }) => {
     const [darkMode, setDarkMode] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date())
     const [matches, setMatches] = useState(liveScoreMatches)
-    const [leagues, setLeagues] = useState([{ value: 'all', label:<div className="flex grow items-center text-black">All</div> }])
-    const options = leagues;
-    const [isSmallScreen, setIsSmallScreen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [onlyLiveMatches, setOnlyLiveMatches] = useState(null);
-    const [loading, setLoading] = useState(true)
+    //{ value: 'all', label:<div className="flex grow items-center text-black">All</div> }
+    const [leagues, setLeagues] = useState<LeagueModelSelect[]>([{value:'all',label:<div className="flex grow items-center text-black">All</div>}])
+    
+    const options:any = leagues;
+
+    const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [onlyLiveMatches, setOnlyLiveMatches] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true)
 
 
     useEffect(()=>{
@@ -44,25 +48,15 @@ const Home = ({ liveScoreMatches }) => {
         };
     },[])
     //Customize DatePicker
-    const CalendarInput = forwardRef(({ value, onClick }, ref) => (
+    const CalendarInput = forwardRef<HTMLInputElement | HTMLTextAreaElement,any>(({ value, onClick }, ref:any) => (
         (isSmallScreen ?
         <div onClick={onClick} ref={ref} className="example-custom-input flex flex-row justify-center items-center border border-white border-opacity-20 rounded-full px-2 py-1 cursor-pointer bg-white">
-            <Image
-                src={calendarSVG}
-                width={25}
-                height={25}
-                alt="Filter Calendar"
-            />
+            <CalendarSVG height="25" width="25" fill={"#000"}/>
         </div>
         :
         <div onClick={onClick} ref={ref} className="example-custom-input flex flex-row justify-center items-center border border-white border-opacity-20 rounded-full px-2 py-1 cursor-pointer bg-white">
             <span className="text-black text-xs opacity-40 uppercase font-bold">{format(selectedDate, "d MMM yyyy")}</span>
-            <Image
-                src={calendarSVG}
-                width={25}
-                height={25}
-                alt="Filter Calendar"
-            />
+            <CalendarSVG height="25" width="25" fill={"#000"}/>
         </div>)
     ));
     const fetchAllMatches = async () => {
@@ -107,7 +101,7 @@ const Home = ({ liveScoreMatches }) => {
         .then(res => {
             console.log(res.data.result)
             //const dataLeagues = data.result ? data.result : []
-            let prepareLeagues = []
+            let prepareLeagues: Array<LeagueModelSelect> = [];
             res.data.result.map((league)=>{
                 prepareLeagues.push(
                     { value: league.league_key, label:<div className="flex grow items-center text-black"><div className="mr-1"><Image src={league.league_logo} alt={league.league_name+'('+league.country_name+')'} width={15} height={15} /></div>{league.league_name}</div> }
@@ -148,7 +142,7 @@ const Home = ({ liveScoreMatches }) => {
                 </div>
                 <div>
                     <div className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
-                        <div className="p-1 px-3 bg-white dark:bg-dark-800 text-default dark:text-white  rounded-full cursor-pointer">
+                        <div className="p-1 px-3 bg-white dark:bg-dark-800 text-default  rounded-full cursor-pointer">
                             <div className="dark:opacity-80 text-custom-primary">All</div>
                         </div>
                         <div className="flex items-center p-1 px-3   rounded-full text-red-500 space-x-1 cursor-pointer">
@@ -205,7 +199,7 @@ const Home = ({ liveScoreMatches }) => {
                                 <Calendar onChange={setSelectedDate} value={selectedDate} />
                             </div> */}
                         </div>
-                        <div onClick={()=>{fetchDataMatches(subDays(new Date(), 1), "d")}} className="flex justify-center border border-white border-opacity-20 rounded-full px-2 py-1 cursor-pointer ">
+                        <div onClick={()=>{fetchDataMatches(subDays(new Date(), 1))}} className="flex justify-center border border-white border-opacity-20 rounded-full px-2 py-1 cursor-pointer ">
                             <div className="dark:opacity-90">{format(subDays(new Date(), 1), "d")}</div>
                             <div className="text-xs opacity-40 uppercase font-bold">{format(subDays(new Date(), 1), "EEE")}</div>
                         </div>
@@ -213,7 +207,7 @@ const Home = ({ liveScoreMatches }) => {
                             <div className="dark:opacity-90">{format(new Date(), "d")}</div>
                             <div className="text-xs opacity-40 uppercase font-bold">today</div>
                         </div>
-                        <div onClick={()=>{fetchDataMatches(addDays(new Date(), 1), "d")}} className="flex justify-center border border-white border-opacity-20 rounded-full px-2 py-1 cursor-pointer ">
+                        <div onClick={()=>{fetchDataMatches(addDays(new Date(), 1))}} className="flex justify-center border border-white border-opacity-20 rounded-full px-2 py-1 cursor-pointer ">
                             <div className="dark:opacity-90">{format(addDays(new Date(), 1), "d")}</div>
                             <div className="text-xs opacity-40 uppercase font-bold">{format(addDays(new Date(), 1), "EEE")}</div>
                         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import sunSVG from '../../../public/sun.svg?url'
+import SunSVG from '../../../public/sun.svg'
 import Lineups from '../../../components/lineups';
 import Results from '../../../components/results';
 import Location from '../../../components/location';
@@ -60,26 +60,6 @@ const Fixture = () => {
                 });
           
         };
-
-            /* try {
-                const fetchData = await axios.get('https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=1a246378ee1a27812647163f0b157b4cbc475baade4283ccf6efd1ae97f4f3f0&matchId=1143107'+fixtureId, {})
-                setMatch(fetchData.data.result)
-                setLoading(false);
-                
-                const parsedData = Object.entries({ "goalscorers":fetchData.data.result.goalscorers, "substitutes":fetchData.data.result.substitutes, "cards":fetchData.data.result.cards }).reduce((result, [eventType, eventArray]) => {
-                    eventArray.forEach(event => {
-                    const { time, ...eventData } = event;
-                    result[time] = result[time] || {};
-                    result[time][eventType] = eventData;
-                    });
-                    return result;
-                }, {});
-                console.log(Object.entries(parsedData))
-                setDataEvents(Object.entries(parsedData))
-            } catch (error) {
-                console.log(error)
-            } */
-    
         fetchData();
     }, [router.isReady]);
 
@@ -118,22 +98,10 @@ const Fixture = () => {
             <div className="flex justify-end w-3/12">
                 <div className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
                     <div className="p-1 bg-white dark:bg-dark-800  rounded-full cursor-pointer">
-                        
-                                    <Image
-                                        src={sunSVG}
-                                        width={15}
-                                        height={15}
-                                        alt=''
-                                    />
+                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                     </div>
                     <div className="p-1   rounded-full space-x-1 cursor-pointer">
-                        
-                                    <Image
-                                        src={sunSVG}
-                                        width={15}
-                                        height={15}
-                                        alt=''
-                                    />
+                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                     </div>
                 </div>
             </div>

@@ -6,10 +6,12 @@ import DetailSVG from '../public/detail.svg'
 import React, { useState  } from 'react';
 
 const Match = ({ match }) => {
-  const [expanded, setExpanded] = useState(false);
-  const [dataFetched, setDataFetched] = useState(false);
-  const [details, setDetails] = useState(null);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [dataFetched, setDataFetched] = useState<boolean>(false);
   const [dataEvents, setDataEvents] = useState(null);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true)
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -32,7 +34,6 @@ const Match = ({ match }) => {
     }, {});
     setDataEvents(Object.entries(parsedData))
     //
-    setDetails('data');
     setDataFetched(true);
         
   };
