@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Details from './match/details';
+
+import DetailSVG from '../public/detail.svg'
 import React, { useState  } from 'react';
 
 const Match = ({ match }) => {
@@ -77,7 +79,9 @@ const Match = ({ match }) => {
                     </div>
                     <div className="w-1/12 flex px-1 justify-end">
                         <div className="dark:text-white text-redlive hover:text-default cursor-pointer dark:hover:text-white dark:hover:opacity-60 hover:font-bold focus:outline-none">
-                            <Link href={`/fixtures/fixture/${match.event_key}`}>Details</Link>
+                            <Link href={`/fixtures/fixture/${match.event_key}`}>
+                              <DetailSVG height="15" width="15" fill={"#777"}/>
+                            </Link>
                         </div>
                     </div>
                 </div>

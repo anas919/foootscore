@@ -17,6 +17,7 @@ import SubstituteSVG from '../../../public/substitute.svg'
 import Details from '../../../components/match/details';
 import FixtureDetails from '../../../components/fixture/details';
 import { format } from 'date-fns';
+import LoadingSpinner from '../../../utils/LoadingSpinner';
 
 const Fixture = () => {
 
@@ -86,7 +87,11 @@ const Fixture = () => {
     <div className={darkMode ? 'dark' : ''}>
     {
         loading ?
-        <div>Loading</div>
+        <div className='flex h-screen'>
+            <div className='m-auto'>
+                <LoadingSpinner />
+            </div>
+        </div>
         :
         match.map((res, index) => (
         <div key={index} className="nav-widget dark:bg-dark text-white py-3 bg-indigo-950 space-y-8">
