@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import React from 'react'
 
-// pages/404.js
-export default function Custom404() {
+const Custom404 = () =>  {
   return (
     <section className="page_404 mb-0">
       <div className="flex h-screen mb-0">
@@ -22,5 +22,7 @@ export default function Custom404() {
         </div>
       </div>
     </section>
-  );
+  )
 }
+
+export default Custom404

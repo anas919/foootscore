@@ -4,8 +4,6 @@ import Link from 'next/link'
 import CalendarSVG from '../public/calendar.svg'
 import MoonSVG from '../public/moon.svg'
 import SunSVG from '../public/sun.svg'
-import BallSVG from '../public/ball.svg'
-import SubstituteSVG from '../public/substitute.svg'
 import Select from 'react-select'
 
 import { format, formatDistance, formatRelative, subDays ,addDays } from 'date-fns'
@@ -66,6 +64,7 @@ const Home = ({ liveScoreMatches }) => {
     const fetchLiveMatches = async () => {
         setOnlyLiveMatches(true)
         setSelectedDate(new Date());
+        fetchDataMatches(new Date())
     }
     const fetchDataMatches = async (date) => {
         setLoading(true);
@@ -142,10 +141,10 @@ const Home = ({ liveScoreMatches }) => {
                 </div>
                 <div>
                     <div className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
-                        <div className="p-1 px-3 bg-white dark:bg-dark-800 text-default  rounded-full cursor-pointer">
+                        <div onClick={() => {fetchAllMatches()}} className={`p-1 px-3  rounded-full cursor-pointer ${onlyLiveMatches ? "text-white" : "bg-white dark:bg-white text-black"}`}>
                             <div className="dark:opacity-80 text-custom-primary">All</div>
                         </div>
-                        <div className="flex items-center p-1 px-3   rounded-full text-red-500 space-x-1 cursor-pointer">
+                        <div onClick={() => {fetchLiveMatches()}} className={`flex items-center p-1 px-3   rounded-full text-red-500 space-x-1 cursor-pointer ${onlyLiveMatches ? "bg-white dark:bg-white" : ""}`}>
                             <div className="w-4px h-4px rounded-full bg-red-500"></div>
                             <div>Live</div>
                         </div>
@@ -153,10 +152,10 @@ const Home = ({ liveScoreMatches }) => {
                 </div>
                 <div>
                     <div onClick={() => { setDarkMode(!darkMode) }} className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
-                        <div className="p-0.5 bg-white dark:bg-dark-800  rounded-full cursor-pointer">
+                        <div className="p-0.5 bg-white dark:bg-transparent dark:bg-dark-800  rounded-full cursor-pointer">
                             <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                         </div>
-                        <div className="p-0.5   rounded-full space-x-1 cursor-pointer">
+                        <div className="p-0.5 bg-transparent dark:bg-white rounded-full space-x-1 cursor-pointer">
                             <MoonSVG height="15" width="15" fill={darkMode ? "#000" : "#fff"}/>
                         </div>
                     </div>
@@ -177,10 +176,10 @@ const Home = ({ liveScoreMatches }) => {
                 </div>
                 <div className="mt-0 w-auto mx-2">
                     <div className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
-                        <div onClick={() => {fetchAllMatches()}} className={`p-1 px-3   dark:text-white  rounded-full cursor-pointer ${onlyLiveMatches ? "text-gray-50" : "bg-white dark:bg-slate-800 text-black"}`}>
+                        <div onClick={() => {fetchAllMatches()}} className={`p-1 px-3  rounded-full cursor-pointer ${onlyLiveMatches ? "text-white" : "bg-white dark:bg-white text-black"}`}>
                             <div className="dark:opacity-80 text-custom-primary">All</div>
                         </div>
-                        <div onClick={() => {fetchLiveMatches()}} className={`flex items-center p-1 px-3   rounded-full text-red-500 space-x-1 cursor-pointer ${onlyLiveMatches ? "bg-white dark:bg-slate-800" : ""}`}>
+                        <div onClick={() => {fetchLiveMatches()}} className={`flex items-center p-1 px-3   rounded-full text-red-500 space-x-1 cursor-pointer ${onlyLiveMatches ? "bg-white dark:bg-white" : ""}`}>
                             <div className="w-4px h-4px rounded-full bg-red-500"></div>
                             <div>Live</div>
                         </div>
@@ -216,22 +215,10 @@ const Home = ({ liveScoreMatches }) => {
                 <div>
                     <div onClick={() => { setDarkMode(!darkMode) }} className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
                         <div className="p-1 bg-white dark:bg-transparent dark:bg-dark-800  rounded-full cursor-pointer">
-                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
-                            {/* <Image
-                                    src={sunSVG}
-                                    width={15}
-                                    height={15}
-                                    alt=""
-                                /> */}
+                            <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                         </div>
                         <div className="p-1 bg-transparent dark:bg-white rounded-full space-x-1 cursor-pointer">
-                        <MoonSVG height="15" width="15" fill={darkMode ? "#000" : "#fff"}/>
-                            {/* <Image
-                                    src={moonSVG}
-                                    width={15}
-                                    height={15}
-                                    alt=""
-                                /> */}
+                            <MoonSVG height="15" width="15" fill={darkMode ? "#000" : "#fff"}/>
                         </div>
                     </div>
                 </div>
