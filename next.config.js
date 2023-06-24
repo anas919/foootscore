@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   webpack(config) {
     // Grab the existing rule that handles SVG imports
@@ -29,4 +31,8 @@ module.exports = {
   images: {
     domains: ['cdn.sportmonks.com','apiv2.allsportsapi.com'],
   },
+  env: {
+    API_KEY: process.env.API_KEY
+  }
+
 }

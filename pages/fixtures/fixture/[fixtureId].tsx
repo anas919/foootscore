@@ -12,6 +12,9 @@ import FieldSVG from '../../../public/field.svg'
 import CalendarSVG from '../../../public/calendar.svg'
 import FixtureDetails from '../../../components/fixture/details';
 import LoadingSpinner from '../../../utils/LoadingSpinner';
+import Lineups from '../../../components/lineups'
+import Statistics from '../../../components/statistics'
+require('dotenv').config()
 
 const Fixture = () => {
 
@@ -21,6 +24,10 @@ const Fixture = () => {
     const [loading, setLoading] = useState(true)
     const [dataEvents, setDataEvents] = useState([]);
     const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+
+    const [showStatistics, setShowStatistics] = useState<boolean>(true);
+    const [showLineups, setShowLineups] = useState<boolean>(false);
+
     
     useEffect(() => {
         if(!router.isReady) return;
@@ -28,7 +35,7 @@ const Fixture = () => {
 
                 await axios({
                     method: 'get',
-                    url: `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=1a246378ee1a27812647163f0b157b4cbc475baade4283ccf6efd1ae97f4f3f0&matchId=${router.query.fixtureId}`,
+                    url: `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${process.env.API_KEY}&matchId=${router.query.fixtureId}`,
                     headers: {
                       'Accept': 'application/json',
                     },
@@ -71,7 +78,7 @@ const Fixture = () => {
     }, [router.isReady]);
 
     const navigateBack = () => {
-
+        router.push('/');
     }
 
     return (
@@ -178,108 +185,154 @@ const Fixture = () => {
                             </div>
                         </div>
                     </div>
+                    
                 ))
                 :
                 match.map((res, index) => (
-                    <div key={index} className="nav-widget text-white py-3 bg-indigo-950 dark:bg-zinc-900 space-y-8">
-                        <div className="flex items-center px-2.5 space-x-2">
-                            <div className="flex justify-start w-3/12">
-                                <div onClick={()=>{ navigateBack() }} className="bg-lighter cursor-pointer text-sm dark:bg-dark-900 rounded-full flex items-center space-x-2 px-5 py-2">
-                                    <div className="false dark:opacity-80">Back to livescores</div>
-                                </div>
-                            </div>
-                            <div className="flex flex-wrap justify-center items-center space-x-1 text-base w-6/12 ">
-                                <div className="w-32px h-32px flex justify-center items-center bg-white rounded-full mr-1">
-                                    <Image
-                                        src={res.league_logo}
-                                        width={24}
-                                        height={24}
-                                        alt=''
-                                        />
-                                </div>
-                                <div className="flex items-center space-x-2 opacity-60">
-                                    <div className="border-prefix pr-2 border-r border-opacity-60 border-white leading-none">{res.league_name} ({res.country_name})</div>
-                                    <div className="flex space-x-2"><span>{res.league_round}</span></div>
-                                </div>
-                            </div>
-                            <div className="flex justify-end w-3/12">
-                                <div onClick={() => { setDarkMode(!darkMode) }} className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
-                                    <div className="p-0.5 bg-white dark:bg-transparent dark:bg-dark-800  rounded-full cursor-pointer">
-                                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
-                                    </div>
-                                    <div className="p-0.5 bg-transparent dark:bg-white rounded-full space-x-1 cursor-pointer">
-                                        <MoonSVG height="15" width="15" fill={darkMode ? "#000" : "#fff"}/>
+                    <div key={index}>
+                        <div className="nav-widget text-white py-3 bg-indigo-950 dark:bg-zinc-900 space-y-8">
+                            <div className="flex items-center px-2.5 space-x-2">
+                                <div className="flex justify-start w-3/12">
+                                    <div onClick={()=>{ navigateBack() }} className="bg-lighter cursor-pointer text-sm dark:bg-dark-900 rounded-full flex items-center space-x-2 px-5 py-2">
+                                        <div className="false dark:opacity-80">Back to livescores</div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="flex flex-col items-center px-2.5">
-                            <div className="grid grid-cols-12 items-center justify-center gap-10 py-4">
-                                <div className="col-span-5 flex items-center gap-2 justify-self-end">
-                                    <div className="text-center text-2xl dark:opacity-80 ">{res.event_home_team}</div>
-                                    <div className="relative flex-shrink-0">
+                                <div className="flex flex-wrap justify-center items-center space-x-1 text-base w-6/12 ">
+                                    <div className="w-32px h-32px flex justify-center items-center bg-white rounded-full mr-1">
                                         <Image
-                                            src={res.home_team_logo}
-                                            width={96}
-                                            height={96}
+                                            src={res.league_logo}
+                                            width={24}
+                                            height={24}
                                             alt=''
                                             />
                                     </div>
-                                </div>
-                                <div className="flex flex-col relative items-center space-y-1 col-span-2">
-                                    <div className="flex absolute -top-4 text-center text-base">
-                                        <div className="dark:text-white dark:opacity-80 uppercase">FT</div>
-                                    </div>
-                                    <div className="bg-custom-primary rounded-full py-1 px-5 dark:bg-dark-900">
-                                        <div className="flex items-center dark:opacity-80 space-x-5 text-2xl"><span>{res.event_final_result}</span></div>
-                                    </div>
-                                    <div className="absolute truncate dark:opacity-80 text-center text-base top-12 ">
-                                        <div>FH ({res.event_halftime_result})</div>
+                                    <div className="flex items-center space-x-2 opacity-60">
+                                        <div className="border-prefix pr-2 border-r border-opacity-60 border-white leading-none">{res.league_name} ({res.country_name})</div>
+                                        <div className="flex space-x-2"><span>{res.league_round}</span></div>
                                     </div>
                                 </div>
-                                <div className="col-span-5 flex items-center gap-2 justify-self-start">
-                                    <div className="text-center text-2xl dark:opacity-80 order-2">{res.event_away_team}</div>
-                                    <div className="relative flex-shrink-0">
-                                        <Image
-                                            src={res.away_team_logo}
-                                            width={96}
-                                            height={96}
-                                            alt=''
-                                            />
+                                <div className="flex justify-end w-3/12">
+                                    <div onClick={() => { setDarkMode(!darkMode) }} className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
+                                        <div className="p-0.5 bg-white dark:bg-transparent dark:bg-dark-800  rounded-full cursor-pointer">
+                                            <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
+                                        </div>
+                                        <div className="p-0.5 bg-transparent dark:bg-white rounded-full space-x-1 cursor-pointer">
+                                            <MoonSVG height="15" width="15" fill={darkMode ? "#000" : "#fff"}/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <FixtureDetails dataEvents={dataEvents} />
+                            <div className="flex flex-col items-center px-2.5">
+                                <div className="grid grid-cols-12 items-center justify-center gap-10 py-4">
+                                    <div className="col-span-5 flex items-center gap-2 justify-self-end">
+                                        <div className="text-center text-2xl dark:opacity-80 ">{res.event_home_team}</div>
+                                        <div className="relative flex-shrink-0">
+                                            <Image
+                                                src={res.home_team_logo}
+                                                width={96}
+                                                height={96}
+                                                alt=''
+                                                />
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col relative items-center space-y-1 col-span-2">
+                                        <div className="flex absolute -top-4 text-center text-base">
+                                            <div className="dark:text-white dark:opacity-80 uppercase">FT</div>
+                                        </div>
+                                        <div className="bg-custom-primary rounded-full py-1 px-5 dark:bg-dark-900">
+                                            <div className="flex items-center dark:opacity-80 space-x-5 text-2xl"><span>{res.event_final_result}</span></div>
+                                        </div>
+                                        <div className="absolute truncate dark:opacity-80 text-center text-base top-12 ">
+                                            <div>FH ({res.event_halftime_result})</div>
+                                        </div>
+                                    </div>
+                                    <div className="col-span-5 flex items-center gap-2 justify-self-start">
+                                        <div className="text-center text-2xl dark:opacity-80 order-2">{res.event_away_team}</div>
+                                        <div className="relative flex-shrink-0">
+                                            <Image
+                                                src={res.away_team_logo}
+                                                width={96}
+                                                height={96}
+                                                alt=''
+                                                />
+                                        </div>
+                                    </div>
+                                </div>
+                                <FixtureDetails dataEvents={dataEvents} />
+                            </div>
+                            <div className="text-base px-6 justify-evenly flex flex-wrap gap-x-2 gap-y-1 pt-3 border-prefix border-t-2 border-white border-opacity-30 items-center opacity-80 pb-1">
+                                <div className="flex items-center space-x-2">
+                                    <div className="text-xl flex items-center">
+                                        <CalendarSVG height="15" width="15" fill={"#fff"}/>
+                                    </div>
+                                    <div>{res.event_date}</div>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <div className="text-xl flex items-center">
+                                        <FieldSVG height="15" width="15" fill={"#fff"}/>
+                                    </div>
+                                    <div>{res.event_stadium}</div>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <div className="text-xl flex items-center">
+                                        <WhistleSVG height="15" width="15" fill={"#fff"}/>
+                                    </div>
+                                    <div>{res.event_referee ? res.event_referee : 'Unkown'}</div>
+                                </div>
+                            </div>
+                            {/* {
+                                res.lineups.home_team.starting_lineups.length ?
+                                <Lineups
+                                    lineups={res.lineups}
+                                    event_home_team={res.event_home_team}
+                                    event_away_team={res.event_away_team}
+                                    home_team_logo={res.home_team_logo}
+                                    away_team_logo={res.away_team_logo}
+                                />
+                                :
+                                null
+                            }
+                            <Statistics statistics={res.statistics} /> */}
+                            {/* 
+                            <Lineups />
+                            <Results />
+                            <Location />
+                            <Events />
+                            <Statistics />
+                            <Standings />
+                            <Squad />
+                            */}
                         </div>
-                        <div className="text-base px-6 justify-evenly flex flex-wrap gap-x-2 gap-y-1 pt-3 border-prefix border-t-2 border-white border-opacity-30 items-center opacity-80 pb-1">
-                            <div className="flex items-center space-x-2">
-                                <div className="text-xl flex items-center">
-                                    <CalendarSVG height="15" width="15" fill={"#fff"}/>
-                                </div>
-                                <div>{res.event_date}</div>
+                        <div className="pt-1.5 flex justify-center flex-wrap bg-white dark:bg-black">
+                            <div onClick={()=> { setShowStatistics(true);setShowLineups(false) }} className={`px-6 py-4 rounded-t-sm cursor-pointer dark:text-white ${showStatistics ? "dark:bg-black border-prefix border-b-2 border-red-500" : "opacity-50 "}`}>
+                                <div className="dark:opacity-80">Statistics</div>
                             </div>
-                            <div className="flex items-center space-x-2">
-                                <div className="text-xl flex items-center">
-                                    <FieldSVG height="15" width="15" fill={"#fff"}/>
-                                </div>
-                                <div>{res.event_stadium}</div>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <div className="text-xl flex items-center">
-                                    <WhistleSVG height="15" width="15" fill={"#fff"}/>
-                                </div>
-                                <div>{res.event_referee ? res.event_referee : 'Unkown'}</div>
+                            <div onClick={()=> { setShowLineups(true);setShowStatistics(false) }} className={`px-6 py-4 rounded-t-sm cursor-pointer dark:text-white ${showLineups ? "dark:bg-black border-prefix border-b-2 border-red-500" : "opacity-50 "}`}>
+                                <div className="dark:opacity-80">Lineup</div>
                             </div>
                         </div>
-                        {/* 
-                        <Lineups />
-                        <Results />
-                        <Location />
-                        <Events />
-                        <Statistics />
-                        <Standings />
-                        <Squad />
-                        */}
+                        <div className='p-2'>
+                            {
+                                showStatistics ?
+                                <Statistics statistics={res.statistics}
+                                    event_home_team={res.event_home_team}
+                                    event_away_team={res.event_away_team}
+                                    home_team_logo={res.home_team_logo}
+                                    away_team_logo={res.away_team_logo}
+                                 />
+                                :
+                                res.lineups.home_team.starting_lineups.length ?
+                                <Lineups
+                                    lineups={res.lineups}
+                                    event_home_team={res.event_home_team}
+                                    event_away_team={res.event_away_team}
+                                    home_team_logo={res.home_team_logo}
+                                    away_team_logo={res.away_team_logo}
+                                />
+                                :
+                                null
+                            }
+                        </div>
                     </div>
                     )
                 )

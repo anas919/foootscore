@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import sunSVG from '../public/sun.svg?url'
 
 const Results = ({ results }) => {
   return (

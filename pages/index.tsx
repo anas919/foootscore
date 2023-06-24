@@ -5,7 +5,6 @@ import CalendarSVG from '../public/calendar.svg'
 import MoonSVG from '../public/moon.svg'
 import SunSVG from '../public/sun.svg'
 import Select from 'react-select'
-
 import { format, formatDistance, formatRelative, subDays ,addDays } from 'date-fns'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,6 +12,7 @@ import Match from '../components/match';
 import axios from 'axios';
 import LoadingSpinner from '../utils/LoadingSpinner';
 import { LeagueModelSelect } from '../models/LeagueModel';
+require('dotenv').config()
 
 const Home = ({ liveScoreMatches }) => {
     const [darkMode, setDarkMode] = useState(false);
@@ -70,13 +70,12 @@ const Home = ({ liveScoreMatches }) => {
         setLoading(true);
         await axios({
             method: 'get',
-            url: 'https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=1a246378ee1a27812647163f0b157b4cbc475baade4283ccf6efd1ae97f4f3f0&from='+format(date, "yyyy-MM-dd")+'&to='+format(date, "yyyy-MM-dd"),
+            url: `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${process.env.API_KEY}&from=${format(date, "yyyy-MM-dd")}&to=${format(date, "yyyy-MM-dd")}`,
             headers: {
               'Accept': 'application/json',
             },
         })
         .then(res => {
-            console.log(res.data.result)
             //const dataLeagues = data.result ? data.result : []
             const liveScoreMatches = res.data.result ? res.data.result : []
             setMatches(liveScoreMatches);
@@ -92,13 +91,12 @@ const Home = ({ liveScoreMatches }) => {
     const fetchDataLeagues = async () => {
         await axios({
             method: 'get',
-            url: 'https://apiv2.allsportsapi.com/football/?met=Leagues&APIkey=1a246378ee1a27812647163f0b157b4cbc475baade4283ccf6efd1ae97f4f3f0',
+            url: `https://apiv2.allsportsapi.com/football/?met=Leagues&APIkey=${process.env.API_KEY}`,
             headers: {
               'Accept': 'application/json',
             },
         })
         .then(res => {
-            console.log(res.data.result)
             //const dataLeagues = data.result ? data.result : []
             let prepareLeagues: Array<LeagueModelSelect> = [];
             res.data.result.map((league)=>{
@@ -251,10 +249,9 @@ export async function getServerSideProps(context) {
     
     //https://apiv2.allsportsapi.com/football/?met=Livescore&APIkey=!_your_account_APIkey_!
     const response = await fetch(
-        'https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=1a246378ee1a27812647163f0b157b4cbc475baade4283ccf6efd1ae97f4f3f0&from=2021-06-19&to=2021-06-19'
+        `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${process.env.API_KEY}&from=${format(new Date(), "yyyy-MM-dd")}&to=${format(new Date(), "yyyy-MM-dd")}`
     );
     const data = await response.json();
-
     
     const liveScoreMatches = data.result ? data.result : []
 

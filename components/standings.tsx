@@ -1,36 +1,25 @@
 import Image from 'next/image'
-import sunSVG from '../public/sun.svg?url'
+import SunSVG from '../public/sun.svg'
+import React, { useState, useEffect } from 'react';
 
 const Standings = ({ standings }) => {
+    const [darkMode, setDarkMode] = useState(false);
   return (
 <div className="font w-full mx-auto border-prefix border-solid bg-black dark:bg-dark border-lightgrey">
 <div className="nav-widget flex-col justify-between space-x-1 items-center py-2 px-3">
     <div className="flex items-center space-x-2">
         <div className="bg-black flex items-center justify-center rounded-full p-1 w-32px h-32px">
-            <Image
-                src='https://cdn.sportmonks.com/images/soccer/leagues/8/8.png'
-                width={15}
-                height={15}
-                alt=''
-                />
+                <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
             <div className="flex text-white dark:text-opacity-90 items-end space-x-2">
                 <div className="text-lg leading-none">Premier League</div>
             </div>
         </div>
         <div className="flex justify-between p-0.5 rounded-full border-prefix border border-white border-opacity-20">
             <div className="p-0.5 bg-white dark:bg-dark-800  rounded-full cursor-pointer">
-                <Image
-                    src={sunSVG}
-                    width={15}
-                    height={15}
-                    />
+                <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
             </div>
             <div className="p-0.5   rounded-full space-x-1 cursor-pointer">
-                <Image
-                    src={sunSVG}
-                    width={15}
-                    height={15}
-                    />
+                <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
             </div>
         </div>
     </div>

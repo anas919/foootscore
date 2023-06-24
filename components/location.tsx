@@ -1,7 +1,9 @@
 import Image from 'next/image'
-import sunSVG from '../public/sun.svg?url'
+import SunSVG from '../public/sun.svg'
+import React, { useState, useEffect } from 'react';
 
 const Location = ({ location }) => {
+    const [darkMode, setDarkMode] = useState(false);
   return (
     <div className="rounded-md shadow-lg">
     <div className="flex justify-between items-center dark:text-white bg-white dark:bg-dark-900 bg-opacity-80 py-4 px-5 text-lg font-semibold space-x-6 ">
@@ -69,55 +71,35 @@ const Location = ({ location }) => {
                 <div className="flex flex-wrap text-center">
                     <div className="w-1/3 py-4 flex flex-col items-center leading-4">
                         <div className="text-custom-secondary text-2xl mb-1">
-                            <Image
-                                  src={sunSVG}
-                                  width={15}
-                                  height={15}
-                              />
+                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                         </div>
                         <div className="font-base opacity-60">Weather</div>
                         <div className="font-medium capitalize dark:opacity-80">overcast clouds</div>
                     </div>
                     <div className="w-1/3 py-4 flex flex-col items-center leading-4">
                         <div className="text-custom-secondary text-2xl mb-1">
-                            <Image
-                                  src={sunSVG}
-                                  width={15}
-                                  height={15}
-                              />
+                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                         </div>
                         <div className="font-base opacity-60">Temperature</div>
                         <div className="font-medium capitalize dark:opacity-80">23.7℃</div>
                     </div>
                     <div className="w-1/3 py-4 flex flex-col items-center leading-4">
                         <div className="text-custom-secondary text-2xl mb-1">
-                            <Image
-                                  src={sunSVG}
-                                  width={15}
-                                  height={15}
-                              />
+                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                         </div>
                         <div className="font-base opacity-60">Clouds</div>
                         <div className="font-medium capitalize dark:opacity-80">100%</div>
                     </div>
                     <div className="w-1/3 py-4 flex flex-col items-center leading-4">
                         <div className="text-custom-secondary text-2xl mb-1">
-                            <Image
-                                  src={sunSVG}
-                                  width={15}
-                                  height={15}
-                              />
+                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                         </div>
                         <div className="font-base opacity-60">Wind Speed</div>
                         <div className="font-medium capitalize dark:opacity-80">3.54</div>
                     </div>
                     <div className="w-1/3 py-4 flex flex-col items-center leading-4">
                         <div className="text-custom-secondary text-2xl mb-1">
-                            <Image
-                                  src={sunSVG}
-                                  width={15}
-                                  height={15}
-                              />
+                        <SunSVG height="15" width="15" fill={darkMode ? "#fff" : "#000"}/>
                         </div>
                         <div className="font-base opacity-60">Humidity</div>
                         <div className="font-medium capitalize dark:opacity-80">23%</div>
