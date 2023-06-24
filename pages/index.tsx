@@ -68,6 +68,7 @@ const Home = ({ liveScoreMatches }) => {
     }
     const fetchDataMatches = async (date) => {
         setLoading(true);
+        console.log(`https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${process.env.API_KEY}&from=${format(date, "yyyy-MM-dd")}&to=${format(date, "yyyy-MM-dd")}`)
         await axios({
             method: 'get',
             url: `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${process.env.API_KEY}&from=${format(date, "yyyy-MM-dd")}&to=${format(date, "yyyy-MM-dd")}`,
@@ -76,6 +77,7 @@ const Home = ({ liveScoreMatches }) => {
             },
         })
         .then(res => {
+            console.log(res.data.result)
             //const dataLeagues = data.result ? data.result : []
             const liveScoreMatches = res.data.result ? res.data.result : []
             setMatches(liveScoreMatches);
@@ -97,6 +99,7 @@ const Home = ({ liveScoreMatches }) => {
             },
         })
         .then(res => {
+            console.log(res.data.result)
             //const dataLeagues = data.result ? data.result : []
             let prepareLeagues: Array<LeagueModelSelect> = [];
             res.data.result.map((league)=>{
