@@ -2,6 +2,10 @@
 
 This is a live score app built with Next.js and React, powered by the allsportsapi.com API. It provides real-time updates and information about various sports events.
 
+## Demo
+
+[foootscore.vercel.app](https://foootscore.vercel.app/)
+
 ## Features
 
 - Live scores for football.
